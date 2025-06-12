@@ -65,6 +65,48 @@ var result = CustomMessageBox.ShowWithImage(
 
 The application uses the UISettings system to persist window position and size between sessions.
 
+## Using Custom Icons in Another Project
+
+To use the custom message box with custom icons in your own project, follow these detailed steps:
+
+1. **Add the Required Files**:
+   - Copy `CustomMessageBox.xaml` and `CustomMessageBox.xaml.cs` to your project
+   - Copy `SystemIconExtensions.cs` to your project (for fallback system icons)
+   - Update the namespaces in all files to match your project structure
+
+2. **Set Up Resource Files**:
+   - Create a `/Resources` folder in your project if one doesn't exist
+   - Add the following PNG image files to your Resources folder:
+     - `error.png` - For error message boxes
+     - `warning.png` - For warning message boxes
+     - `info.png` - For information message boxes
+     - `question.png` - For question message boxes
+   - Ensure each image is 32x32 pixels with transparent background for best results
+
+3. **Set Resource Build Action**:
+   - In Solution Explorer, select each PNG file
+   - In the Properties panel, set the Build Action to "Resource"
+   - Set "Copy to Output Directory" to "Do not copy"
+
+4. **Avoid Duplicate Resource Entries**:
+   - Ensure each image is included only once in your project file
+   - Case sensitivity matters: use consistent casing for filenames
+   - If you manually edit the .csproj file, check for duplicate Resource entries
+
+5. **Reference the Images in XAML**:
+   ```xml
+   <Image Source="pack://application:,,,/Resources/error.png" />
+   ```
+
+6. **Reference the Images in Code**:
+   ```csharp
+   var customImage = new BitmapImage(new Uri("pack://application:,,,/Resources/error.png", UriKind.Absolute));
+   ```
+
+7. **Troubleshooting**:
+   - If you get "An item with the same key has already been added" build errors, check for duplicate resource entries
+   - If images don't display, verify paths and ensure the Build Action is set correctly
+
 ## Additional Documentation
 
 For implementation details, please see the [Views Documentation](Views/ReadMe_CustomMessageBox.md).
