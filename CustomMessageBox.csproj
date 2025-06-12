@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <RootNamespace>CustomMessageBox</RootNamespace>
+        <AssemblyName>CustomMessageBox</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Properties\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Resources\error.png" />
+        <Resource Include="Resources\info.png" />
+        <Resource Include="Resources\question.png" />
+        <Resource Include="Resources\warning.png" />
+    </ItemGroup>
+
+</Project>

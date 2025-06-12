@@ -1,0 +1,184 @@
+﻿<Window x:Class="CustomMessageBox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CustomMessageBox"
+        mc:Ignorable="d"
+        Title="CustomMessageBox Demo" Height="700" Width="800"
+        Background="#f0f0f0">
+
+    <Window.Resources>
+        <Style x:Key="DemoButton" TargetType="Button">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="MinWidth" Value="200" />
+            <Setter Property="Background" Value="#2E75B6" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3E85C6" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#1E65A6" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#CCCCCC" />
+                                <Setter Property="Foreground" Value="#888888" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="8,16,8,8" />
+            <Setter Property="Foreground" Value="#333333" />
+        </Style>
+
+        <Style x:Key="DescriptionText" TargetType="TextBlock">
+            <Setter Property="Margin" Value="8,0,8,8" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="#555555" />
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="CustomMessageBox Demo" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,16" 
+                       HorizontalAlignment="Center"
+                       Foreground="#2E75B6"/>
+
+            <TextBlock Text="This application demonstrates all the possible dialogs using CustomMessageBox." 
+                       TextWrapping="Wrap" 
+                       Margin="0,0,0,20" 
+                       HorizontalAlignment="Center"
+                       Foreground="#555555"/>
+
+            <!-- Button Types Section -->
+            <TextBlock Text="Button Combinations" Style="{StaticResource SectionTitle}"/>
+            <TextBlock Text="Different combinations of buttons available in the CustomMessageBox" 
+                       Style="{StaticResource DescriptionText}"/>
+
+            <WrapPanel>
+                <Button x:Name="btnOK" 
+                        Content="OK Button" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnOK_Click"/>
+
+                <Button x:Name="btnOKCancel" 
+                        Content="OK/Cancel Buttons" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnOKCancel_Click"/>
+
+                <Button x:Name="btnYesNo" 
+                        Content="Yes/No Buttons" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnYesNo_Click"/>
+
+                <Button x:Name="btnYesNoCancel" 
+                        Content="Yes/No/Cancel Buttons" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnYesNoCancel_Click"/>
+            </WrapPanel>
+
+            <!-- Icon Types Section -->
+            <TextBlock Text="Message Box Icons" Style="{StaticResource SectionTitle}"/>
+            <TextBlock Text="Different icons that can be displayed in the CustomMessageBox" 
+                       Style="{StaticResource DescriptionText}"/>
+
+            <WrapPanel>
+                <Button x:Name="btnInformation" 
+                        Content="Information Icon" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnInformation_Click"/>
+
+                <Button x:Name="btnWarning" 
+                        Content="Warning Icon" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnWarning_Click"/>
+
+                <Button x:Name="btnError" 
+                        Content="Error Icon" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnError_Click"/>
+
+                <Button x:Name="btnQuestion" 
+                        Content="Question Icon" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnQuestion_Click"/>
+
+                <Button x:Name="btnNoIcon" 
+                        Content="No Icon" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnNoIcon_Click"/>
+            </WrapPanel>
+
+            <!-- Default Result Section -->
+            <TextBlock Text="Default Results" Style="{StaticResource SectionTitle}"/>
+            <TextBlock Text="Demonstration of setting different default results" 
+                       Style="{StaticResource DescriptionText}"/>
+
+            <WrapPanel>
+                <Button x:Name="btnDefaultYes" 
+                        Content="Default Yes" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnDefaultYes_Click"/>
+
+                <Button x:Name="btnDefaultNo" 
+                        Content="Default No" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnDefaultNo_Click"/>
+
+                <Button x:Name="btnDefaultCancel" 
+                        Content="Default Cancel" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnDefaultCancel_Click"/>
+            </WrapPanel>
+
+            <!-- Custom Image Section -->
+            <TextBlock Text="Custom Image" Style="{StaticResource SectionTitle}"/>
+            <TextBlock Text="Using a custom image instead of the standard icon" 
+                       Style="{StaticResource DescriptionText}"/>
+
+            <Button x:Name="btnCustomImage" 
+                    Content="Custom Image Dialog" 
+                    Style="{StaticResource DemoButton}" 
+                    HorizontalAlignment="Left"
+                    Click="BtnCustomImage_Click"/>
+
+            <!-- Result Display Section -->
+            <TextBlock Text="Dialog Result" Style="{StaticResource SectionTitle}"/>
+
+            <Border Background="White" 
+                    BorderBrush="#DDDDDD" 
+                    BorderThickness="1" 
+                    CornerRadius="4" 
+                    Padding="12" 
+                    Margin="8">
+                <TextBlock x:Name="txtResult" 
+                           Text="Click any button above to see the dialog result here" 
+                           TextWrapping="Wrap"/>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

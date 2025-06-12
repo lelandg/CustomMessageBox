@@ -1,0 +1,11 @@
+This folder is for application resources such as images and icons.
+
+For custom icons, you would typically add the following files:
+- Error.png
+- Info.png
+- Question.png
+- Warning.png
+
+These files are referenced in the CustomMessageBox.xaml.cs file for the standard message box icons.
+
+If the files are not found, the application will generate fallback icons using text characters.

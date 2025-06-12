@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomMessageBox", "CustomMessageBox.csproj", "{7C093E41-61E0-4E8D-8477-EC10049C4C02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C093E41-61E0-4E8D-8477-EC10049C4C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C093E41-61E0-4E8D-8477-EC10049C4C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C093E41-61E0-4E8D-8477-EC10049C4C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C093E41-61E0-4E8D-8477-EC10049C4C02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
