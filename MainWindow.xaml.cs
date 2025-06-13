@@ -215,6 +215,75 @@ public partial class MainWindow : Window
         DisplayResult("Custom Image", result);
     }
 
+    #endregion
+
+    #region Style Generator Demo
+
+    private void BtnSystemColors_Click(object sender, RoutedEventArgs e)
+    {
+        Views.MessageBoxDemo.SetupSystemDialogColors();
+
+        var result = Views.CustomMessageBox.Show(
+            this,
+            "This message box is using system dialog colors.",
+            "System Colors",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        DisplayResult("System Colors Applied", result);
+    }
+
+    private void BtnDefaultColors_Click(object sender, RoutedEventArgs e)
+    {
+        Views.MessageBoxDemo.ResetToDefaultColors();
+
+        var result = Views.CustomMessageBox.Show(
+            this,
+            "Message box has been reset to default colors.",
+            "Default Colors",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        DisplayResult("Default Colors Restored", result);
+    }
+
+    private void BtnToggleStandardNormal_Click(object sender, RoutedEventArgs e)
+    {
+        // Toggle between standard and normal colors
+        bool usingStandard = Views.MessageBoxDemo.ToggleStandardNormalColors();
+
+        // Update button content based on current state
+        BtnToggleStandardNormal.Content = usingStandard ? 
+            "Switch to App Colors" : 
+            "Switch to Standard Colors";
+
+        string colorType = usingStandard ? "Standard" : "Normal";
+
+        var result = Views.CustomMessageBox.Show(
+            this,
+            $"Switched to {colorType} colors. All future message boxes will use these colors.",
+            $"{colorType} Colors",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        DisplayResult($"{colorType} Colors Applied", result);
+    }
+
+    private void BtnCustomColors_Click(object sender, RoutedEventArgs e)
+    {
+        // Set a custom color scheme (dark green in this example)
+        Views.MessageBoxDemo.SetupCustomColors(Colors.DarkGreen);
+
+        var result = Views.CustomMessageBox.Show(
+            this,
+            "This message box is using custom color scheme.",
+            "Custom Colors",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+
+        DisplayResult("Custom Colors Applied", result);
+    }
+
     private ImageSource CreateCustomImage()
     {
         var visual = new DrawingVisual();

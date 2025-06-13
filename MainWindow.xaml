@@ -160,12 +160,18 @@
             <TextBlock Text="Using a custom image instead of the standard icon" 
                        Style="{StaticResource DescriptionText}"/>
 
+            <WrapPanel>
             <Button x:Name="btnCustomImage" 
                     Content="Custom Image Dialog" 
                     Style="{StaticResource DemoButton}" 
                     HorizontalAlignment="Left"
                     Click="BtnCustomImage_Click"/>
 
+            <Button x:Name="BtnToggleStandardNormal" 
+                    Content="Switch to Standard Colors" 
+                    Style="{StaticResource DemoButton}" 
+                    Click="BtnToggleStandardNormal_Click"/>
+            </WrapPanel>
             <!-- Result Display Section -->
             <TextBlock Text="Dialog Result" Style="{StaticResource SectionTitle}"/>
 

@@ -12,6 +12,12 @@ public partial class App : Application
 
         // Set application-wide exception handling if needed
         // Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+
+        // Uncomment to apply system dialog colors to all message boxes
+        // Views.MessageBoxDemo.SetupSystemDialogColors();
+
+        // Or use a custom color scheme
+        // Views.MessageBoxDemo.SetupCustomColors(Colors.DarkGreen);
     }
 
     private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

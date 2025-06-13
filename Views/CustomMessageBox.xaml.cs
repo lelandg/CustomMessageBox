@@ -10,6 +10,28 @@ public partial class CustomMessageBox : Window
     {
         InitializeComponent();
         KeyDown += CustomMessageBox_KeyDown;
+
+        // Apply current style generator settings
+        ApplyGeneratorStyles();
+    }
+
+    private void ApplyGeneratorStyles()
+    {
+        var generator = MessageBoxStyleGenerator.Current;
+
+        // Apply colors from the generator
+        Background = generator.WindowBackground;
+        BorderBrush.BorderBrush = generator.BorderBrush;
+        MessageTitle.Background = generator.TitleBackground;
+        MessageTitle.Foreground = generator.TitleForeground;
+
+        // Update button style resources
+        Resources["MessageBoxButtonBackground"] = generator.ButtonBackground;
+        Resources["MessageBoxButtonHoverBackground"] = generator.ButtonHoverBackground;
+        Resources["MessageBoxButtonPressedBackground"] = generator.ButtonPressedBackground;
+        Resources["MessageBoxButtonDisabledBackground"] = generator.ButtonDisabledBackground;
+        Resources["MessageBoxButtonForeground"] = generator.ButtonForeground;
+        Resources["MessageBoxButtonDisabledForeground"] = generator.ButtonDisabledForeground;
     }
     private void CustomMessageBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
