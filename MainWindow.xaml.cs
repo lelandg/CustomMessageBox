@@ -23,6 +23,20 @@ public partial class MainWindow : Window
     private int _currentThemeIndex = 0;
     private readonly WindowSettingsManager _settingsManager;
 
+    // Flag to track if custom style is applied
+    private bool _customStyleApplied = false;
+
+    // Custom style for global application
+    private Views.CustomMessageBoxStyle _customGlobalStyle = new Views.CustomMessageBoxStyle
+    {
+        TitleBackground = new SolidColorBrush(Colors.Indigo),
+        BorderBrush = new SolidColorBrush(Colors.Indigo),
+        ButtonBackground = new SolidColorBrush(Colors.Indigo),
+        ButtonHoverBackground = new SolidColorBrush(Colors.MediumSlateBlue),
+        ButtonPressedBackground = new SolidColorBrush(Colors.DarkSlateBlue),
+        WindowBackground = new SolidColorBrush(Color.FromRgb(245, 240, 255))
+    };
+
     public MainWindow()
     {
         InitializeComponent();
@@ -257,34 +271,6 @@ public partial class MainWindow : Window
         DisplayResult("Unique Colors", result);
     }
 
-    private void BtnSystemColors_Click(object sender, RoutedEventArgs e)
-    {
-        Views.MessageBoxDemo.SetupSystemDialogColors();
-
-        var result = Views.CustomMessageBox.Show(
-            this,
-            "This message box is using system dialog colors.",
-            "System Colors",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
-
-        DisplayResult("System Colors Applied", result);
-    }
-
-    private void BtnDefaultColors_Click(object sender, RoutedEventArgs e)
-    {
-        Views.MessageBoxDemo.ResetToDefaultColors();
-
-        var result = Views.CustomMessageBox.Show(
-            this,
-            "Message box has been reset to default colors.",
-            "Default Colors",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
-
-        DisplayResult("Default Colors Restored", result);
-    }
-
     private void BtnToggleStandardNormal_Click(object sender, RoutedEventArgs e)
     {
         // Toggle between standard and normal colors
@@ -305,21 +291,6 @@ public partial class MainWindow : Window
             MessageBoxImage.Information);
 
         DisplayResult($"{colorType} Colors Applied", result);
-    }
-
-    private void BtnCustomColors_Click(object sender, RoutedEventArgs e)
-    {
-        // Set a custom color scheme (dark green in this example)
-        Views.MessageBoxDemo.SetupCustomColors(Colors.DarkGreen);
-
-        var result = Views.CustomMessageBox.Show(
-            this,
-            "This message box is using custom color scheme.",
-            "Custom Colors",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
-
-        DisplayResult("Custom Colors Applied", result);
     }
 
     private ImageSource CreateCustomImage()
@@ -423,5 +394,51 @@ public partial class MainWindow : Window
     private void DisplayResult(string dialogType, MessageBoxResult result)
     {
         txtResult.Text = $"Dialog: {dialogType}\nResult: {result}";
+    }
+
+    private void BtnToggleCustomStyle_Click(object sender, RoutedEventArgs e)
+    {
+        _customStyleApplied = !_customStyleApplied;
+
+        if (_customStyleApplied)
+        {
+            // Apply custom style to all message boxes
+            var customGenerator = new Views.MessageBoxStyleGenerator
+            {
+                TitleBackground = _customGlobalStyle.TitleBackground,
+                BorderBrush = _customGlobalStyle.BorderBrush,
+                ButtonBackground = _customGlobalStyle.ButtonBackground,
+                ButtonHoverBackground = _customGlobalStyle.ButtonHoverBackground,
+                ButtonPressedBackground = _customGlobalStyle.ButtonPressedBackground,
+                WindowBackground = _customGlobalStyle.WindowBackground
+            };
+
+            Views.MessageBoxStyleGenerator.SetCurrent(customGenerator);
+            btnToggleCustomStyle.Content = "Use Default Style";
+
+            var result = Views.CustomMessageBox.Show(
+                this,
+                "Applied custom style to all message boxes. All dialogs will now use the custom style.",
+                "Custom Style Applied",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            DisplayResult("Custom Style Toggle", result);
+        }
+        else
+        {
+            // Reset to default style
+            Views.MessageBoxStyleGenerator.ResetToDefaults();
+            btnToggleCustomStyle.Content = "Toggle Custom Style";
+
+            var result = Views.CustomMessageBox.Show(
+                this,
+                "Reset to default style. All dialogs will now use the default style.",
+                "Default Style Applied",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            DisplayResult("Custom Style Toggle", result);
+        }
     }
 }
