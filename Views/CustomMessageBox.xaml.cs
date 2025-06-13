@@ -15,6 +15,22 @@ public partial class CustomMessageBox : Window
 
         // Apply current style generator settings
         ApplyGeneratorStyles();
+
+        // Handle window loaded to set focus on default button
+        Loaded += CustomMessageBox_Loaded;
+    }
+
+    private void CustomMessageBox_Loaded(object sender, RoutedEventArgs e)
+    {
+        // Focus the default button when the window opens
+        if (OkButton.IsDefault && OkButton.Visibility == Visibility.Visible)
+            OkButton.Focus();
+        else if (YesButton.IsDefault && YesButton.Visibility == Visibility.Visible)
+            YesButton.Focus();
+        else if (NoButton.IsDefault && NoButton.Visibility == Visibility.Visible)
+            NoButton.Focus();
+        else if (CancelButton.IsDefault && CancelButton.Visibility == Visibility.Visible)
+            CancelButton.Focus();
     }
 
     private void ApplyGeneratorStyles()
@@ -119,7 +135,7 @@ public partial class CustomMessageBox : Window
                 break;
         }
     }
-    private void SetupButtons(MessageBoxButton buttons)
+    private void SetupButtons(MessageBoxButton buttons, MessageBoxResult defaultResult = MessageBoxResult.None)
     {
         // Reset all buttons to not be default first
         OkButton.IsDefault = false;
@@ -127,28 +143,69 @@ public partial class CustomMessageBox : Window
         NoButton.IsDefault = false;
         CancelButton.IsDefault = false;
 
+        // First set button visibility based on button type
         switch (buttons)
         {
             case MessageBoxButton.OK:
                 OkButton.Visibility = Visibility.Visible;
-                OkButton.IsDefault = true;
                 break;
             case MessageBoxButton.OKCancel:
                 OkButton.Visibility = Visibility.Visible;
                 CancelButton.Visibility = Visibility.Visible;
-                OkButton.IsDefault = true;
                 break;
             case MessageBoxButton.YesNo:
                 YesButton.Visibility = Visibility.Visible;
                 NoButton.Visibility = Visibility.Visible;
-                YesButton.IsDefault = true;
                 break;
             case MessageBoxButton.YesNoCancel:
                 YesButton.Visibility = Visibility.Visible;
                 NoButton.Visibility = Visibility.Visible;
                 CancelButton.Visibility = Visibility.Visible;
-                YesButton.IsDefault = true;
                 break;
+        }
+
+        // Then set default button based on defaultResult parameter or use default behavior
+        if (defaultResult != MessageBoxResult.None)
+        {
+            // Set default button based on specified result
+            switch (defaultResult)
+            {
+                case MessageBoxResult.OK:
+                    if (OkButton.Visibility == Visibility.Visible)
+                        OkButton.IsDefault = true;
+                    break;
+                case MessageBoxResult.Yes:
+                    if (YesButton.Visibility == Visibility.Visible)
+                        YesButton.IsDefault = true;
+                    break;
+                case MessageBoxResult.No:
+                    if (NoButton.Visibility == Visibility.Visible)
+                        NoButton.IsDefault = true;
+                    break;
+                case MessageBoxResult.Cancel:
+                    if (CancelButton.Visibility == Visibility.Visible)
+                        CancelButton.IsDefault = true;
+                    break;
+            }
+        }
+        else
+        {
+            // Use default behavior if no specific default was requested
+            switch (buttons)
+            {
+                case MessageBoxButton.OK:
+                    OkButton.IsDefault = true;
+                    break;
+                case MessageBoxButton.OKCancel:
+                    OkButton.IsDefault = true;
+                    break;
+                case MessageBoxButton.YesNo:
+                    YesButton.IsDefault = true;
+                    break;
+                case MessageBoxButton.YesNoCancel:
+                    YesButton.IsDefault = true;
+                    break;
+            }
         }
     }
 
@@ -373,8 +430,8 @@ public partial class CustomMessageBox : Window
             }
         };
 
-        // Setup buttons and icon
-        msgBox.SetupButtons(buttons);
+        // Setup buttons and icon, passing the defaultResult
+        msgBox.SetupButtons(buttons, defaultResult);
         msgBox.SetIcon(icon);
 
         // Show dialog
@@ -405,8 +462,8 @@ public partial class CustomMessageBox : Window
             }
         };
 
-        // Setup buttons and icon
-        msgBox.SetupButtons(buttons);
+        // Setup buttons and icon, passing the defaultResult
+        msgBox.SetupButtons(buttons, defaultResult);
         msgBox.SetIcon(icon);
 
         // Apply custom style
@@ -440,11 +497,11 @@ public partial class CustomMessageBox : Window
             }
         };
 
-        // Setup buttons and custom image
-        msgBox.SetupButtons(buttons);
+        // Setup buttons and custom image, passing the defaultResult
+        msgBox.SetupButtons(buttons, defaultResult);
         msgBox.SetCustomImage(customImage);
 
-        // Show dialog and make sure proper button is focused
+        // Show dialog
         msgBox.ShowDialog();
         return msgBox.Result;
     }
@@ -473,14 +530,14 @@ public partial class CustomMessageBox : Window
             }
         };
 
-        // Setup buttons and custom image
-        msgBox.SetupButtons(buttons);
+        // Setup buttons and custom image, passing the defaultResult
+        msgBox.SetupButtons(buttons, defaultResult);
         msgBox.SetCustomImage(customImage);
 
         // Apply custom style
         msgBox.ApplyStyle(style);
 
-        // Show dialog and make sure proper button is focused
+        // Show dialog
         msgBox.ShowDialog();
         return msgBox.Result;
     }

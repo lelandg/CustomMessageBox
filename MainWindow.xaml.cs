@@ -216,8 +216,8 @@ public partial class MainWindow : Window
                 MessageBoxButton.YesNoCancel,
                 MessageBoxImage.Question,
                 MessageBoxResult.Yes);
-            
-            Close();
+            if (result == MessageBoxResult.Yes)
+                Close();
         }
     }
 
