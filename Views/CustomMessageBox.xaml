@@ -5,9 +5,8 @@
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        MinWidth="320"
-        MaxWidth="640"
-        MinHeight="180"
+        Width="320"
+        Height="180"
         Background="#F5F5F5"
         ShowInTaskbar="False"
         WindowStyle="None">
@@ -49,8 +48,8 @@
         </Style>
     </Window.Resources>
 
-    <Border BorderBrush="CornflowerBlue" BorderThickness="1">
-        <Grid Margin="16">
+    <Border BorderBrush="#2E75B6" BorderThickness="1">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -61,23 +60,23 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Icon -->
-            <Image x:Name="MessageIcon" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" 
-                   Width="45" Height="45" Margin="0,0,16,0" VerticalAlignment="Center"/>
-
             <!-- Message Title -->
-            <TextBlock x:Name="MessageTitle" HorizontalAlignment="Center" 
+            <TextBlock x:Name="MessageTitle" HorizontalAlignment="Stretch"
+                       Background="#2E75B6"
                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
-                       FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap"
-                       Margin="0,0,0,8"/>
+                       FontSize="12" FontWeight="SemiBold" TextWrapping="Wrap"
+                       Margin="0" Padding="3"/>
+            <!-- Icon -->
+            <Image x:Name="MessageIcon" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" 
+                   Width="45" Height="45" Margin="16,0,16,0" VerticalAlignment="Center"/>
 
             <!-- Message Content -->
             <TextBlock x:Name="MessageText" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"
-                       VerticalAlignment="Center" Margin="0,0,0,16"/>
+                       VerticalAlignment="Center" Margin="16"/>
 
             <!-- Buttons -->
-            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" 
-                        HorizontalAlignment="Center">
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" 
+                        HorizontalAlignment="Center" Margin="16,0,16,16">
                 <Button x:Name="YesButton" Content="_Yes" Click="YesButton_Click" 
                         Style="{StaticResource MessageBoxButton}" IsDefault="True" Visibility="Collapsed"/>
                 <Button x:Name="NoButton" Content="_No" Click="NoButton_Click" 
