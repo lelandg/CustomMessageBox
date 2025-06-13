@@ -171,7 +171,24 @@
                     Content="Switch to Standard Colors" 
                     Style="{StaticResource DemoButton}" 
                     Click="BtnToggleStandardNormal_Click"/>
+
+            <Button x:Name="BtnUniqueColors" 
+                    Content="Unique Colors" 
+                    Style="{StaticResource DemoButton}" 
+                    Click="BtnUniqueColors_Click"/>
             </WrapPanel>
+            <!-- Custom Style Section -->
+            <TextBlock Text="Custom Styles" Style="{StaticResource SectionTitle}"/>
+            <TextBlock Text="Demonstrate custom styles that can be applied to individual message boxes" 
+                       Style="{StaticResource DescriptionText}"/>
+
+            <WrapPanel>
+                <Button x:Name="btnStyleDemo" 
+                        Content="Style Demo Sequence" 
+                        Style="{StaticResource DemoButton}" 
+                        Click="BtnStyleDemo_Click"/>
+            </WrapPanel>
+
             <!-- Result Display Section -->
             <TextBlock Text="Dialog Result" Style="{StaticResource SectionTitle}"/>
 

@@ -59,6 +59,48 @@ var result = CustomMessageBox.ShowWithImage(
     "Custom Image",
     MessageBoxButton.OKCancel,
     customImage);
+
+// With custom style
+var customStyle = new CustomMessageBoxStyle {
+    TitleBackground = new SolidColorBrush(Colors.DarkGreen),
+    ButtonBackground = new SolidColorBrush(Colors.DarkGreen)
+};
+var result = CustomMessageBox.ShowWithStyle(
+    "This message uses a custom style.",
+    "Custom Style",
+    MessageBoxButton.YesNo,
+    MessageBoxImage.Question,
+    customStyle);
+
+// Cycling through different color themes
+private readonly Color[][] _colorThemes = new Color[][] {
+    new[] { Colors.Purple, Colors.MediumPurple },
+    new[] { Colors.DarkRed, Colors.Crimson },
+    new[] { Colors.DarkGreen, Colors.ForestGreen },
+    // More color themes...
+};
+
+private int _currentThemeIndex = 0;
+
+private void CycleColorTheme()
+{
+    _currentThemeIndex = (_currentThemeIndex + 1) % _colorThemes.Length;
+    var theme = _colorThemes[_currentThemeIndex];
+
+    var customStyle = new CustomMessageBoxStyle {
+        TitleBackground = new SolidColorBrush(theme[0]),
+        BorderBrush = new SolidColorBrush(theme[0]),
+        ButtonBackground = new SolidColorBrush(theme[0]),
+        ButtonHoverBackground = new SolidColorBrush(theme[1])
+    };
+
+    CustomMessageBox.ShowWithStyle(
+        $"Using color theme {_currentThemeIndex + 1}",
+        "Unique Colors",
+        MessageBoxButton.OK,
+        MessageBoxImage.Information,
+        customStyle);
+}
 ```
 
 ## Window Settings

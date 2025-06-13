@@ -11,6 +11,16 @@ namespace CustomMessageBox;
 /// </summary>
 public partial class MainWindow : Window
 {
+    // Color themes for the unique colors button
+    private readonly Color[][] _colorThemes = new Color[][] {
+        new[] { Colors.Purple, Colors.MediumPurple },
+        new[] { Colors.DarkRed, Colors.Crimson },
+        new[] { Colors.DarkGreen, Colors.ForestGreen },
+        new[] { Colors.DarkOrange, Colors.Orange },
+        new[] { Colors.Teal, Colors.CadetBlue }
+    };
+
+    private int _currentThemeIndex = 0;
     private readonly WindowSettingsManager _settingsManager;
 
     public MainWindow()
@@ -219,6 +229,34 @@ public partial class MainWindow : Window
 
     #region Style Generator Demo
 
+    private void BtnUniqueColors_Click(object sender, RoutedEventArgs e)
+    {
+        // Cycle to the next color theme
+        _currentThemeIndex = (_currentThemeIndex + 1) % _colorThemes.Length;
+        var theme = _colorThemes[_currentThemeIndex];
+
+        // Create a custom style with the theme colors
+        var customStyle = new Views.CustomMessageBoxStyle
+        {
+            TitleBackground = new SolidColorBrush(theme[0]),
+            BorderBrush = new SolidColorBrush(theme[0]),
+            ButtonBackground = new SolidColorBrush(theme[0]),
+            ButtonHoverBackground = new SolidColorBrush(theme[1]),
+            ButtonPressedBackground = new SolidColorBrush(theme[0])
+        };
+
+        // Show a message box with the custom style
+        var result = Views.CustomMessageBox.ShowWithStyle(
+            this,
+            $"This message box is using a unique color theme ({theme[0].ToString()}).",
+            "Unique Colors",
+            MessageBoxButton.OKCancel,
+            MessageBoxImage.Information,
+            customStyle);
+
+        DisplayResult("Unique Colors", result);
+    }
+
     private void BtnSystemColors_Click(object sender, RoutedEventArgs e)
     {
         Views.MessageBoxDemo.SetupSystemDialogColors();
@@ -315,6 +353,72 @@ public partial class MainWindow : Window
     }
 
     #endregion
+
+    private void BtnStyleDemo_Click(object sender, RoutedEventArgs e)
+    {
+        // First dialog: Purple theme
+        var purpleStyle = new Views.CustomMessageBoxStyle
+        {
+            TitleBackground = new SolidColorBrush(Colors.Purple),
+            BorderBrush = new SolidColorBrush(Colors.Purple),
+            ButtonBackground = new SolidColorBrush(Colors.Purple),
+            ButtonHoverBackground = new SolidColorBrush(Colors.MediumPurple)
+        };
+
+        var result1 = Views.CustomMessageBox.ShowWithStyle(
+            this,
+            "This is the first dialog with a purple theme.",
+            "Purple Theme",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information,
+            purpleStyle);
+
+        // Second dialog: Orange theme with custom window background
+        var orangeStyle = new Views.CustomMessageBoxStyle
+        {
+            TitleBackground = new SolidColorBrush(Colors.DarkOrange),
+            BorderBrush = new SolidColorBrush(Colors.DarkOrange),
+            WindowBackground = new SolidColorBrush(Color.FromRgb(255, 250, 240)), // Light orange
+            ButtonBackground = new SolidColorBrush(Colors.DarkOrange),
+            ButtonHoverBackground = new SolidColorBrush(Colors.Orange),
+            TitleForeground = new SolidColorBrush(Colors.Black)
+        };
+
+        var result2 = Views.CustomMessageBox.ShowWithStyle(
+            this,
+            "This is the second dialog with an orange theme and custom window background.",
+            "Orange Theme",
+            MessageBoxButton.OKCancel,
+            MessageBoxImage.Warning,
+            orangeStyle);
+
+        // Third dialog: Green theme with rounded image
+        var greenStyle = new Views.CustomMessageBoxStyle
+        {
+            TitleBackground = new SolidColorBrush(Colors.DarkGreen),
+            BorderBrush = new SolidColorBrush(Colors.DarkGreen),
+            ButtonBackground = new SolidColorBrush(Colors.DarkGreen),
+            ButtonHoverBackground = new SolidColorBrush(Colors.ForestGreen),
+            ButtonForeground = new SolidColorBrush(Colors.LightYellow)
+        };
+
+        // Create a custom image
+        var customImage = CreateCustomImage();
+
+        var result3 = Views.CustomMessageBox.ShowWithImageAndStyle(
+            this,
+            "This is the third dialog with a green theme and custom image.",
+            "Green Theme",
+            MessageBoxButton.YesNoCancel,
+            customImage,
+            greenStyle);
+
+        // Display combined results
+        txtResult.Text = $"Style Demo Results:\n" +
+                         $"Purple Theme: {result1}\n" +
+                         $"Orange Theme: {result2}\n" +
+                         $"Green Theme: {result3}";
+    }
 
     private void DisplayResult(string dialogType, MessageBoxResult result)
     {

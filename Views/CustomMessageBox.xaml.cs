@@ -5,6 +5,8 @@ using System.Windows.Media.Imaging;
 namespace CustomMessageBox.Views;
 public partial class CustomMessageBox : Window
 {
+    // Store the current style for this instance
+    private CustomMessageBoxStyle? _instanceStyle;
     public MessageBoxResult Result { get; private set; }
     private CustomMessageBox()
     {
@@ -32,6 +34,31 @@ public partial class CustomMessageBox : Window
         Resources["MessageBoxButtonDisabledBackground"] = generator.ButtonDisabledBackground;
         Resources["MessageBoxButtonForeground"] = generator.ButtonForeground;
         Resources["MessageBoxButtonDisabledForeground"] = generator.ButtonDisabledForeground;
+    }
+
+    /// <summary>
+    /// Applies a custom style to this message box instance
+    /// </summary>
+    /// <param name="style">The style to apply</param>
+    public void ApplyStyle(CustomMessageBoxStyle style)
+    {
+        if (style == null) return;
+
+        _instanceStyle = style;
+
+        // Apply each style property if it's not null
+        if (style.WindowBackground != null) Background = style.WindowBackground;
+        if (style.BorderBrush != null) BorderBrush.BorderBrush = style.BorderBrush;
+        if (style.TitleBackground != null) MessageTitle.Background = style.TitleBackground;
+        if (style.TitleForeground != null) MessageTitle.Foreground = style.TitleForeground;
+
+        // Update button style resources only for non-null properties
+        if (style.ButtonBackground != null) Resources["MessageBoxButtonBackground"] = style.ButtonBackground;
+        if (style.ButtonHoverBackground != null) Resources["MessageBoxButtonHoverBackground"] = style.ButtonHoverBackground;
+        if (style.ButtonPressedBackground != null) Resources["MessageBoxButtonPressedBackground"] = style.ButtonPressedBackground;
+        if (style.ButtonDisabledBackground != null) Resources["MessageBoxButtonDisabledBackground"] = style.ButtonDisabledBackground;
+        if (style.ButtonForeground != null) Resources["MessageBoxButtonForeground"] = style.ButtonForeground;
+        if (style.ButtonDisabledForeground != null) Resources["MessageBoxButtonDisabledForeground"] = style.ButtonDisabledForeground;
     }
     private void CustomMessageBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
@@ -234,33 +261,97 @@ public partial class CustomMessageBox : Window
     {
         return Show(null, messageText, "", MessageBoxButton.OK, MessageBoxImage.None);
     }
+
+    /// <summary>
+    /// Display a message with custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(string messageText, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(null, messageText, "", MessageBoxButton.OK, MessageBoxImage.None, style);
+    }
     public static MessageBoxResult Show(string messageText, string caption)
     {
         return Show(null, messageText, caption, MessageBoxButton.OK, MessageBoxImage.None);
+    }
+
+    /// <summary>
+    /// Display a message with caption and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(string messageText, string caption, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(null, messageText, caption, MessageBoxButton.OK, MessageBoxImage.None, style);
     }
     public static MessageBoxResult Show(string messageText, string caption, MessageBoxButton buttons)
     {
         return Show(null, messageText, caption, buttons, MessageBoxImage.None);
     }
+
+    /// <summary>
+    /// Display a message with caption, buttons and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(string messageText, string caption, MessageBoxButton buttons, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(null, messageText, caption, buttons, MessageBoxImage.None, style);
+    }
     public static MessageBoxResult Show(Window owner, string messageText)
     {
         return Show(owner, messageText, "", MessageBoxButton.OK, MessageBoxImage.None);
+    }
+
+    /// <summary>
+    /// Display a message with owner window and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(Window owner, string messageText, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(owner, messageText, "", MessageBoxButton.OK, MessageBoxImage.None, style);
     }
     public static MessageBoxResult Show(Window owner, string messageText, string caption)
     {
         return Show(owner, messageText, caption, MessageBoxButton.OK, MessageBoxImage.None);
     }
+
+    /// <summary>
+    /// Display a message with owner window, caption and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(Window owner, string messageText, string caption, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(owner, messageText, caption, MessageBoxButton.OK, MessageBoxImage.None, style);
+    }
     public static MessageBoxResult Show(Window owner, string messageText, string caption, MessageBoxButton buttons)
     {
         return Show(owner, messageText, caption, buttons, MessageBoxImage.None);
+    }
+
+    /// <summary>
+    /// Display a message with owner window, caption, buttons and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(Window owner, string messageText, string caption, MessageBoxButton buttons, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(owner, messageText, caption, buttons, MessageBoxImage.None, style);
     }
     public static MessageBoxResult Show(string messageText, string caption, MessageBoxButton buttons, MessageBoxImage icon)
     {
         return Show(null, messageText, caption, buttons, icon);
     }
+
+    /// <summary>
+    /// Display a message with caption, buttons, icon and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(string messageText, string caption, MessageBoxButton buttons, MessageBoxImage icon, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(null, messageText, caption, buttons, icon, style);
+    }
     public static MessageBoxResult Show(Window? owner, string messageText, string caption, MessageBoxButton buttons, MessageBoxImage icon)
     {
         return Show(owner, messageText, caption, buttons, icon, MessageBoxResult.None);
+    }
+
+    /// <summary>
+    /// Display a message with owner window, caption, buttons, icon and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(Window? owner, string messageText, string caption, MessageBoxButton buttons, MessageBoxImage icon, CustomMessageBoxStyle style)
+    {
+        return ShowWithStyle(owner, messageText, caption, buttons, icon, MessageBoxResult.None, style);
     }
     public static MessageBoxResult Show(Window? owner, string messageText, string caption, MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defaultResult)
     {
@@ -285,6 +376,41 @@ public partial class CustomMessageBox : Window
         // Setup buttons and icon
         msgBox.SetupButtons(buttons);
         msgBox.SetIcon(icon);
+
+        // Show dialog
+        msgBox.ShowDialog();
+        return msgBox.Result;
+    }
+
+    /// <summary>
+    /// Display a message with owner window, caption, buttons, icon, default result and custom style
+    /// </summary>
+    public static MessageBoxResult ShowWithStyle(Window? owner, string messageText, string caption, MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defaultResult, CustomMessageBoxStyle style)
+    {
+        var msgBox = new CustomMessageBox
+        {
+            Title = string.IsNullOrEmpty(caption) ? "Message" : caption,
+            Owner = owner,
+            // Set default result based on parameter
+            Result = defaultResult,
+            MessageTitle =
+            {
+                // Set title and message text
+                Text = string.IsNullOrEmpty(caption) ? "" : caption,
+                Visibility = string.IsNullOrEmpty(caption) ? Visibility.Collapsed : Visibility.Visible
+            },
+            MessageText =
+            {
+                Text = messageText
+            }
+        };
+
+        // Setup buttons and icon
+        msgBox.SetupButtons(buttons);
+        msgBox.SetIcon(icon);
+
+        // Apply custom style
+        msgBox.ApplyStyle(style);
 
         // Show dialog
         msgBox.ShowDialog();
@@ -317,6 +443,42 @@ public partial class CustomMessageBox : Window
         // Setup buttons and custom image
         msgBox.SetupButtons(buttons);
         msgBox.SetCustomImage(customImage);
+
+        // Show dialog and make sure proper button is focused
+        msgBox.ShowDialog();
+        return msgBox.Result;
+    }
+
+    /// <summary>
+    /// Display a message box with a custom image and style
+    /// </summary>
+    public static MessageBoxResult ShowWithImageAndStyle(Window? owner, string messageText, string caption, 
+        MessageBoxButton buttons, ImageSource customImage, CustomMessageBoxStyle style, MessageBoxResult defaultResult = MessageBoxResult.None)
+    {
+        var msgBox = new CustomMessageBox
+        {
+            Title = string.IsNullOrEmpty(caption) ? "Message" : caption,
+            Owner = owner,
+            // Set default result
+            Result = defaultResult,
+            MessageTitle =
+            {
+                // Set title and message text
+                Text = string.IsNullOrEmpty(caption) ? "" : caption,
+                Visibility = string.IsNullOrEmpty(caption) ? Visibility.Collapsed : Visibility.Visible
+            },
+            MessageText =
+            {
+                Text = messageText
+            }
+        };
+
+        // Setup buttons and custom image
+        msgBox.SetupButtons(buttons);
+        msgBox.SetCustomImage(customImage);
+
+        // Apply custom style
+        msgBox.ApplyStyle(style);
 
         // Show dialog and make sure proper button is focused
         msgBox.ShowDialog();
