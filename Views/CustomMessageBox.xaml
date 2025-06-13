@@ -61,18 +61,18 @@
             </Grid.ColumnDefinitions>
 
             <!-- Message Title -->
-            <TextBlock x:Name="MessageTitle" HorizontalAlignment="Stretch"
-                       Background="#2E75B6"
+            <TextBlock x:Name="MessageTitle" HorizontalAlignment="Stretch" TextAlignment="Left"
+                       Background="#2E75B6" Foreground="White" 
                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                        FontSize="12" FontWeight="SemiBold" TextWrapping="Wrap"
-                       Margin="0" Padding="3"/>
+                       Margin="0" Padding="16,5,16,5"/>
             <!-- Icon -->
             <Image x:Name="MessageIcon" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" 
                    Width="45" Height="45" Margin="16,0,16,0" VerticalAlignment="Center"/>
 
             <!-- Message Content -->
             <TextBlock x:Name="MessageText" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"
-                       VerticalAlignment="Center" Margin="16"/>
+                       VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Margin="16"/>
 
             <!-- Buttons -->
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" 
