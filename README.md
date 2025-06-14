@@ -2,6 +2,23 @@
 
 This WPF application demonstrates a custom message box implementation with enhanced styling and features compared to the standard WPF MessageBox.
 
+## Screenshots
+![CustomMessageBox Demo Main Window](Screenshots/Main.png)
+
+### Default App Colors
+![Default App Colors](Screenshots/AppColors.png)
+
+### Easily Switch to System Colors
+![System Hover](Screenshots/SystemHover.png) 
+
+### Custom Message Box Examples
+![InfoCustom](Screenshots/InfoCustom.png) ![WarningCustom](Screenshots/WarningCustom.png) ![ErrorCustom](Screenshots/ErrorCustom.png) ![QuestionCustom](Screenshots/QuestionCustom.png) 
+
+### Style Demo Sequence
+
+![Purple](Screenshots/Purple.png) ![Orange](Screenshots/Orange.png) ![Green](Screenshots/Green_Custom.png)
+
+
 ## Features
 
 - Modern UI with rounded corners and custom styling
