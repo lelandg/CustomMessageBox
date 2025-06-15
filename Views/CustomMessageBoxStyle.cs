@@ -58,6 +58,11 @@ public class CustomMessageBoxStyle
     public Brush? ButtonDisabledForeground { get; set; }
 
     /// <summary>
+    /// Brush for button outline/border
+    /// </summary>
+    public Brush? ButtonOutline { get; set; }
+
+    /// <summary>
     /// Creates a new CustomMessageBoxStyle with all properties set to null (using current styles)
     /// </summary>
     public CustomMessageBoxStyle() { }
@@ -80,6 +85,7 @@ public class CustomMessageBoxStyle
         TitleForeground = generator.TitleForeground;
         ButtonForeground = generator.ButtonForeground;
         ButtonDisabledForeground = generator.ButtonDisabledForeground;
+        ButtonOutline = generator.ButtonOutline;
     }
 
     /// <summary>
@@ -100,5 +106,6 @@ public class CustomMessageBoxStyle
         if (TitleForeground != null) generator.TitleForeground = TitleForeground;
         if (ButtonForeground != null) generator.ButtonForeground = ButtonForeground;
         if (ButtonDisabledForeground != null) generator.ButtonDisabledForeground = ButtonDisabledForeground;
+        if (ButtonOutline != null) generator.ButtonOutline = ButtonOutline;
     }
 }

@@ -21,6 +21,7 @@ public class MessageBoxStyleGenerator
     public Brush TitleForeground { get; set; } = Brushes.White;
     public Brush ButtonForeground { get; set; } = Brushes.White;
     public Brush ButtonDisabledForeground { get; set; } = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
+    public Brush ButtonOutline { get; set; } = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
 
     /// <summary>
     /// Gets the current generator instance or creates a new one with default settings
@@ -54,7 +55,8 @@ public class MessageBoxStyleGenerator
             ButtonDisabledBackground = SystemColors.ControlLightLightBrush,
             TitleForeground = SystemColors.ActiveCaptionTextBrush,
             ButtonForeground = SystemColors.ControlTextBrush,
-            ButtonDisabledForeground = SystemColors.GrayTextBrush
+            ButtonDisabledForeground = SystemColors.GrayTextBrush,
+            ButtonOutline = SystemColors.ActiveBorderBrush
         };
 
         return generator;

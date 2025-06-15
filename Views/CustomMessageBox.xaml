@@ -18,6 +18,7 @@
         <SolidColorBrush x:Key="MessageBoxButtonDisabledBackground" Color="#CCCCCC" />
         <SolidColorBrush x:Key="MessageBoxButtonForeground" Color="White" />
         <SolidColorBrush x:Key="MessageBoxButtonDisabledForeground" Color="#888888" />
+        <SolidColorBrush x:Key="MessageBoxButtonOutline" Color="#888888" />
         <DropShadowEffect x:Key="ButtonShadow" ShadowDepth="2" BlurRadius="4" Opacity="0.3" />
 
         <Style x:Key="MessageBoxButton" TargetType="Button">
@@ -27,7 +28,8 @@
             <Setter Property="Padding" Value="8,0" />
             <Setter Property="Background" Value="{DynamicResource MessageBoxButtonBackground}" />
             <Setter Property="Foreground" Value="{DynamicResource MessageBoxButtonForeground}" />
-            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MessageBoxButtonOutline}" />
+            <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">

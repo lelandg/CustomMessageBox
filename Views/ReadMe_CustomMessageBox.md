@@ -212,6 +212,7 @@ The `CustomMessageBoxStyle` class lets you customize these aspects:
 - `ButtonDisabledBackground` - Background color for disabled buttons
 - `ButtonForeground` - Text color for buttons
 - `ButtonDisabledForeground` - Text color for disabled buttons
+- `ButtonOutline` - Border/outline color for buttons
 
 Leave any property as `null` to use the current default style for that aspect.
 

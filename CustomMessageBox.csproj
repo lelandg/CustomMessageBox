@@ -8,6 +8,17 @@
         <UseWPF>true</UseWPF>
         <RootNamespace>CustomMessageBox</RootNamespace>
         <AssemblyName>CustomMessageBox</AssemblyName>
+            <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+        <Company>CustomMessageBox</Company>
+        <Configuration>Debug</Configuration>
+        <FileVersion>1.0.2.0</FileVersion>
+        <InformationalVersion>1.0.2+91a50f0582090dd1f37cfac4d1192f2de1ab659f</InformationalVersion>
+        <Product>CustomMessageBox</Product>
+        <AssemblyTitle>CustomMessageBox</AssemblyTitle>
+        <Version>1.0.2.0</Version>
+        <TargetPlatform>Windows7.0</TargetPlatform>
+        <SupportedOSPlatform>Windows7.0</SupportedOSPlatform>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +31,13 @@
         <Resource Include="Resources\info.png" />
         <Resource Include="Resources\question.png" />
         <Resource Include="Resources\warning.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Resources\AppIcon.ico" />
+        <Content Include="Resources\AppIcon.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

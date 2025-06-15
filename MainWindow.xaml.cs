@@ -34,7 +34,8 @@ public partial class MainWindow : Window
         ButtonBackground = new SolidColorBrush(Colors.Indigo),
         ButtonHoverBackground = new SolidColorBrush(Colors.MediumSlateBlue),
         ButtonPressedBackground = new SolidColorBrush(Colors.DarkSlateBlue),
-        WindowBackground = new SolidColorBrush(Color.FromRgb(245, 240, 255))
+        WindowBackground = new SolidColorBrush(Color.FromRgb(245, 240, 255)),
+        ButtonOutline = new SolidColorBrush(Colors.MediumPurple)
     };
 
     public MainWindow()
@@ -43,7 +44,8 @@ public partial class MainWindow : Window
         _settingsManager = new WindowSettingsManager(this);
         Closing += (sender, args) => _settingsManager.Save();
         KeyDown += MainWindow_KeyDown;
-        Title = $"CustomMessageBox Demo - v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
+        var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+        Title = version != null ? $"CustomMessageBox Demo - v{version.Major}.{version.Minor}.{version.Build}" : "CustomMessageBox Demo (no version info)";
     }
 
     #region Button Type Demos
@@ -333,7 +335,8 @@ public partial class MainWindow : Window
             TitleBackground = new SolidColorBrush(Colors.Purple),
             BorderBrush = new SolidColorBrush(Colors.Purple),
             ButtonBackground = new SolidColorBrush(Colors.Purple),
-            ButtonHoverBackground = new SolidColorBrush(Colors.MediumPurple)
+            ButtonHoverBackground = new SolidColorBrush(Colors.MediumPurple),
+            ButtonOutline = new SolidColorBrush(Colors.Lavender)
         };
 
         var result1 = Views.CustomMessageBox.ShowWithStyle(
@@ -352,7 +355,8 @@ public partial class MainWindow : Window
             WindowBackground = new SolidColorBrush(Color.FromRgb(255, 250, 240)), // Light orange
             ButtonBackground = new SolidColorBrush(Colors.DarkOrange),
             ButtonHoverBackground = new SolidColorBrush(Colors.Orange),
-            TitleForeground = new SolidColorBrush(Colors.Black)
+            TitleForeground = new SolidColorBrush(Colors.Black),
+            ButtonOutline = new SolidColorBrush(Colors.SaddleBrown)
         };
 
         var result2 = Views.CustomMessageBox.ShowWithStyle(
@@ -370,7 +374,8 @@ public partial class MainWindow : Window
             BorderBrush = new SolidColorBrush(Colors.DarkGreen),
             ButtonBackground = new SolidColorBrush(Colors.DarkGreen),
             ButtonHoverBackground = new SolidColorBrush(Colors.ForestGreen),
-            ButtonForeground = new SolidColorBrush(Colors.LightYellow)
+            ButtonForeground = new SolidColorBrush(Colors.LightYellow),
+            ButtonOutline = new SolidColorBrush(Colors.LightGreen)
         };
 
         // Create a custom image
@@ -410,7 +415,8 @@ public partial class MainWindow : Window
                 ButtonBackground = _customGlobalStyle.ButtonBackground,
                 ButtonHoverBackground = _customGlobalStyle.ButtonHoverBackground,
                 ButtonPressedBackground = _customGlobalStyle.ButtonPressedBackground,
-                WindowBackground = _customGlobalStyle.WindowBackground
+                WindowBackground = _customGlobalStyle.WindowBackground,
+                ButtonOutline = _customGlobalStyle.ButtonOutline
             };
 
             Views.MessageBoxStyleGenerator.SetCurrent(customGenerator);

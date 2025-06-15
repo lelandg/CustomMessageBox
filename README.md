@@ -80,7 +80,8 @@ var result = CustomMessageBox.ShowWithImage(
 // With custom style
 var customStyle = new CustomMessageBoxStyle {
     TitleBackground = new SolidColorBrush(Colors.DarkGreen),
-    ButtonBackground = new SolidColorBrush(Colors.DarkGreen)
+    ButtonBackground = new SolidColorBrush(Colors.DarkGreen),
+    ButtonOutline = new SolidColorBrush(Colors.LightGreen) // Custom button outline
 };
 var result = CustomMessageBox.ShowWithStyle(
     "This message uses a custom style.",
